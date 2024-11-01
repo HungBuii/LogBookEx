@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">UnitConvertApp</string>
+    <string name="select">Select</string>
+
+    <string-array name="spinner">
+
+        <item>None</item>
+        <item>Meter</item>
+        <item>Millimetre</item>
+        <item>Mile</item>
+        <item>Foot</item>
+
+
+    </string-array>
+
 </resources>
