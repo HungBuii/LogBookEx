@@ -103,126 +103,151 @@ public class MainActivity extends AppCompatActivity {
                         btn_convert.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if (selectItemFrom.equals("None")) outputView.setText("0");
+                                double input;
+                                double output;
 
-                                if (selectItemFrom.equals("Meter"))
+                                switch (selectItemFrom)
                                 {
-                                    if (selectItemTo.equals("None")) outputView.setText("0");
+                                    case "None":
+                                        outputView.setText("0");
+                                        break;
 
-                                    if (selectItemTo.equals("Meter")) outputView.setText(inputView.getText());
+                                    case "Meter":
+                                        switch (selectItemTo)
+                                        {
+                                            case "None":
+                                                outputView.setText("0");
+                                                break;
 
-                                    if (selectItemTo.equals("Millimeter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1000;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Meter":
+                                                outputView.setText(inputView.getText());
+                                                break;
 
-                                    if (selectItemTo.equals("Mile")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.000621371;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Millimeter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1000;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Foot")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 3.28084;
-                                        outputView.setText(String.valueOf(output));
+                                            case "Mile":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.000621371;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    }
+                                            case "Foot":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 3.28084;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
+                                        }
+                                    break;
 
-                                }
+                                    case "Millimeter":
+                                        switch (selectItemTo)
+                                        {
+                                            case "None":
+                                                outputView.setText("0");
+                                                break;
 
-                                if (selectItemFrom.equals("Millimeter"))
-                                {
-                                    if (selectItemTo.equals("None")) outputView.setText("0");
+                                            case "Meter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.001;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Meter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.001;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Millimeter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Millimeter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Mile":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.00000621371;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Mile")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.00000621371;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Foot":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.00328084;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
+                                        }
+                                    break;
 
-                                    if (selectItemTo.equals("Foot")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.00328084;
-                                        outputView.setText(String.valueOf(output));
-                                    }
-                                }
+                                    case "Mile":
+                                        switch (selectItemTo)
+                                        {
+                                            case "None":
+                                                outputView.setText("0");
+                                                break;
 
-                                if (selectItemFrom.equals("Mile"))
-                                {
-                                    if (selectItemTo.equals("None")) outputView.setText("0");
+                                            case "Meter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1609;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Meter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1609;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Millimeter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1609344;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Millimeter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1609344;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Mile":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Mile")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Foot":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 5280;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Foot")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 5280;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                        }
+                                    break;
 
-                                }
+                                    case "Foot":
+                                        switch (selectItemTo)
+                                        {
+                                            case "None":
+                                                outputView.setText("0");
+                                                break;
 
-                                if (selectItemFrom.equals("Foot")) {
-                                    if (selectItemTo.equals("None")) outputView.setText("0");
+                                            case "Meter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.3048;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Meter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.3048;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Millimeter":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 304.8;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Millimeter")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 304.8;
-                                        outputView.setText(String.valueOf(output));
-                                    }
+                                            case "Mile":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 0.000189394;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
 
-                                    if (selectItemTo.equals("Mile")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 0.000189394;
-                                        outputView.setText(String.valueOf(output));
-                                    }
-
-                                    if (selectItemTo.equals("Foot")) {
-                                        double input = Double.parseDouble(inputView.getText().toString());
-                                        double output = input * 1;
-                                        outputView.setText(String.valueOf(output));
-                                    }
-
+                                            case "Foot":
+                                                input = Double.parseDouble(inputView.getText().toString());
+                                                output = input * 1;
+                                                outputView.setText(String.valueOf(output));
+                                                break;
+                                        }
+                                    break;
                                 }
                             }
                         });
 
                     }
+
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
@@ -243,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
 
     public void numberClick(String view)
     {
