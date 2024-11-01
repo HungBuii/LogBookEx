@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     if (selectItemTo.equals("Meter")) outputView.setText(inputView.getText());
 
-                                    if (selectItemTo.equals("Millimetre")) {
+                                    if (selectItemTo.equals("Millimeter")) {
                                         double input = Double.parseDouble(inputView.getText().toString());
                                         double output = input * 1000;
                                         outputView.setText(String.valueOf(output));
@@ -127,6 +128,94 @@ public class MainActivity extends AppCompatActivity {
                                         double output = input * 3.28084;
                                         outputView.setText(String.valueOf(output));
 
+                                    }
+
+                                }
+
+                                if (selectItemFrom.equals("Millimeter"))
+                                {
+                                    if (selectItemTo.equals("None")) outputView.setText("0");
+
+                                    if (selectItemTo.equals("Meter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 0.001;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Millimeter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 1;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Mile")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 0.00000621371;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Foot")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 0.00328084;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+                                }
+
+                                if (selectItemFrom.equals("Mile"))
+                                {
+                                    if (selectItemTo.equals("None")) outputView.setText("0");
+
+                                    if (selectItemTo.equals("Meter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 1609;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Millimeter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 1609344;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Mile")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 1;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Foot")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 5280;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                }
+
+                                if (selectItemFrom.equals("Foot")) {
+                                    if (selectItemTo.equals("None")) outputView.setText("0");
+
+                                    if (selectItemTo.equals("Meter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 0.3048;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Millimeter")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 304.8;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Mile")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 0.000189394;
+                                        outputView.setText(String.valueOf(output));
+                                    }
+
+                                    if (selectItemTo.equals("Foot")) {
+                                        double input = Double.parseDouble(inputView.getText().toString());
+                                        double output = input * 1;
+                                        outputView.setText(String.valueOf(output));
                                     }
 
                                 }
