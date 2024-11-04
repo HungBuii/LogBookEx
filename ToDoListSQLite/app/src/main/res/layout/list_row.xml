@@ -7,16 +7,16 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="127dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_width="399dp"
-            android:layout_height="143dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/titleTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Task Item:"
@@ -27,8 +27,8 @@
                 android:id="@+id/descriptionTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:paddingTop="5dp"
+                android:layout_below="@id/titleTask"
+                android:paddingTop="10dp"
                 android:text="Description:"
                 android:textStyle="italic" />
 
@@ -36,7 +36,7 @@
                 android:id="@+id/dateAdded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
+                android:paddingTop="15dp"
                 android:text="Date: "
                 android:textStyle="italic"
                 android:layout_below="@id/descriptionTask" />
@@ -54,13 +54,15 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="15dp"
-                    android:background="@android:drawable/ic_menu_edit"></Button>
+                    android:background="@android:drawable/ic_menu_edit">
+                </Button>
 
                 <Button
                     android:id="@+id/deleteButton"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@android:drawable/ic_delete" />
+                    android:background="@android:drawable/ic_delete">
+                </Button>
             </TableRow>
 
         </RelativeLayout>

@@ -106,7 +106,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
     }
 
     // Get all tasks
-    public List<Task> getAllGroceries()
+    public List<Task> getAllTasks()
     {
         SQLiteDatabase db = this.getReadableDatabase();
 

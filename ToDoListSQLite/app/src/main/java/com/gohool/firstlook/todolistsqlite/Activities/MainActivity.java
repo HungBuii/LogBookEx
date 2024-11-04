@@ -1,13 +1,18 @@
 package com.gohool.firstlook.todolistsqlite.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.gohool.firstlook.todolistsqlite.Data.DatabaseHandle;
+import com.gohool.firstlook.todolistsqlite.Model.Task;
 import com.gohool.firstlook.todolistsqlite.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText taskItem;
     private EditText descriptionTask;
     private Button saveButton;
+    private DatabaseHandle db;
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
@@ -38,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+
+        db = new DatabaseHandle(this);
+
+        showListTask(); // if exist task, go to ListActivity
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,13 +98,45 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveTaskToDB(v);
+                if (!taskItem.getText().toString().isEmpty() &&
+                    !descriptionTask.getText().toString().isEmpty())
+                {
+                    saveTaskToDB(v);
+                }
+
             }
         });
     }
 
     private void saveTaskToDB(View v)
     {
+        Task task = new Task();
+        String newTaskTitle = taskItem.getText().toString();
+        String newTaskDescription = descriptionTask.getText().toString();
 
+        task.setTitle(newTaskTitle);
+        task.setDescription(newTaskDescription);
+
+        // Save to db
+        db.addTask(task);
+        Snackbar.make(v, "Task saved", Snackbar.LENGTH_LONG).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                startActivity(new Intent(MainActivity.this, ListActivity.class));
+            }
+        }, 1000);
     }
+
+    public void showListTask()
+    {
+        if (db.getTaskCount() > 0)
+        {
+            startActivity(new Intent(MainActivity.this, ListActivity.class));
+            finish();
+        }
+    }
+
 }
