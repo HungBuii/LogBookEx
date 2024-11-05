@@ -12,7 +12,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.ui.AppBarConfiguration;
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private EditText taskItem;
+    private EditText titleTask;
     private EditText descriptionTask;
     private Button saveButton;
     private DatabaseHandle db;
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder = new AlertDialog.Builder(this);
         View view = getLayoutInflater().inflate(R.layout.popup, null);
 
-        taskItem = (EditText) view.findViewById(R.id.taskItem);
+        titleTask = (EditText) view.findViewById(R.id.taskItem);
         descriptionTask = (EditText) view.findViewById(R.id.descriptionTask);
         saveButton = (Button) view.findViewById(R.id.saveButton);
 
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!taskItem.getText().toString().isEmpty() &&
+                if (!titleTask.getText().toString().isEmpty() &&
                     !descriptionTask.getText().toString().isEmpty())
                 {
                     saveTaskToDB(v);
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     private void saveTaskToDB(View v)
     {
         Task task = new Task();
-        String newTaskTitle = taskItem.getText().toString();
+        String newTaskTitle = titleTask.getText().toString();
         String newTaskDescription = descriptionTask.getText().toString();
 
         task.setTitle(newTaskTitle);

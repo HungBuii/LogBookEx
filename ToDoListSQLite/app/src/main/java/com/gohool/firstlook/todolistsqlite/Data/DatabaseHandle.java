@@ -114,7 +114,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
 
         Cursor cursor = db.query(CreateDB.TABLE_NAME, new String[] {
                         CreateDB.KEY_ID, CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK, CreateDB.KEY_DATE_NAME},
-                null, null, null, null, CreateDB.KEY_DATE_NAME + " DESC", null);
+                null, null, null, null, CreateDB.KEY_DATE_NAME + " DESC", null); // ASC: ascending, DESC: descending
 
         if (cursor.moveToFirst())
         {
