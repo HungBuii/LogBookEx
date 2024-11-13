@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        // Convert button
 
         from.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -269,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    // Click number
     public void numberClick(String view)
     {
         if (number == null)

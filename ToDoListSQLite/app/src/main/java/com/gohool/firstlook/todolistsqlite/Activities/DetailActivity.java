@@ -13,11 +13,13 @@ import com.gohool.firstlook.todolistsqlite.R;
 
 public class DetailActivity extends AppCompatActivity {
 
+    // Declare variables
     private TextView titleDet;
     private TextView descriptionDet;
     private TextView dateAddedDet;
     private int taskID;
 
+    // Override methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
         descriptionDet = (TextView) findViewById(R.id.descriptionDet);
         dateAddedDet = (TextView) findViewById(R.id.dateAddedDet);
 
+        // Get data from intent
         Bundle bundle = getIntent().getExtras();
 
         if (bundle != null)

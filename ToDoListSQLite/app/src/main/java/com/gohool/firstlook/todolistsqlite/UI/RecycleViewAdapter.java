@@ -24,17 +24,20 @@ import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>
 {
+    // Declare variables
     private Context context;
     private List<Task> taskList;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog dialog;
     private LayoutInflater inflater;
 
+    // Constructor
     public RecycleViewAdapter(Context context, List<Task> taskList) {
         this.context = context;
         this.taskList = taskList;
     }
 
+    // Override methods
     @NonNull
     @Override
     public RecycleViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,6 +58,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return taskList.size();
     }
 
+    // ViewHolder class
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         public int id;
@@ -68,6 +72,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             super(view);
             context = ctx;
 
+            // Initialize views
             titleTask = (TextView) view.findViewById(R.id.titleTask);
             descriptionTask = (TextView) view.findViewById(R.id.descriptionTask);
             dateAdded = (TextView) view.findViewById(R.id.dateAdded);
@@ -78,6 +83,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             editButton.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
 
+            // Set onclick listener for each item
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -95,6 +101,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             });
         }
 
+        // Handle click events
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
@@ -108,6 +115,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             }
         }
 
+        // Delete task
         public void deleteTask(int id)
         {
             // create an AlertDialog
@@ -145,6 +153,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             });
         }
 
+        // Edit task
         public void editTask(Task task)
         {
             alertDialogBuilder = new AlertDialog.Builder(context);

@@ -1,5 +1,6 @@
 package com.gohool.firstlook.todolistsqlite.Util;
 
+// Database table form
 public class CreateDB
 {
     public static final int DB_VERSION = 1;

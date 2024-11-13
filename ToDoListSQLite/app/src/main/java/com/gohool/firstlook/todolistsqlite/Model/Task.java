@@ -1,5 +1,6 @@
 package com.gohool.firstlook.todolistsqlite.Model;
 
+// Model Task
 public class Task
 {
     private int id;

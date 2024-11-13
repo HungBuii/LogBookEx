@@ -19,11 +19,14 @@ import java.util.List;
 public class DatabaseHandle extends SQLiteOpenHelper
 {
     private Context ctx;
+
+    // Constructor
     public DatabaseHandle(@Nullable Context context) {
         super(context, CreateDB.DB_NAME, null, CreateDB.DB_VERSION);
         this.ctx = context;
     }
 
+    // Create table
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TODOLIST_TABLE = "CREATE TABLE " + CreateDB.TABLE_NAME + "("
@@ -35,6 +38,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
         db.execSQL(CREATE_TODOLIST_TABLE);
     }
 
+    // Upgrade table
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + CreateDB.TABLE_NAME);
@@ -61,7 +65,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
         Log.d("Saved!!", "Saved to DB");
     }
 
-    // Get a grocery
+    // Get a task
     public Task getTask(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -166,7 +170,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
                 new String[] {String.valueOf(task.getId())}); // return ID of row updated
     }
 
-    // Delete grocery
+    // Delete task
     public void deleteTask(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();

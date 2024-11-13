@@ -25,6 +25,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Declare variables
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private EditText titleTask;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    // Override methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Override methods
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Create Popup Dialog for adding new task
     private void createPopupDialog()
     {
         dialogBuilder = new AlertDialog.Builder(this);
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Save task to database
     private void saveTaskToDB(View v)
     {
         Task task = new Task();
@@ -129,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }, 1000);
     }
 
+    // Check if exist task
     public void showListTask()
     {
         if (db.getTaskCount() > 0)

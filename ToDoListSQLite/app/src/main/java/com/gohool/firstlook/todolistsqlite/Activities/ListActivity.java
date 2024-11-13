@@ -29,6 +29,7 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
+    // Declare variables
     private RecyclerView recyclerView;
     private RecycleViewAdapter recyclerViewAdapter;
     private List<Task> taskList;
@@ -44,6 +45,7 @@ public class ListActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityListBinding binding;
 
+    // Override methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,7 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+        // Initialize variables
         db = new DatabaseHandle(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewID);
         recyclerView.setHasFixedSize(true);
@@ -84,12 +87,14 @@ public class ListActivity extends AppCompatActivity {
             taskListEdit.add(task);
         }
 
+        // Set adapter
         recyclerViewAdapter = new RecycleViewAdapter(this, taskListEdit);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerViewAdapter.notifyDataSetChanged();
 
     }
 
+    // Create Popup Dialog for adding new task
     private void createPopupDialog()
     {
         dialogBuilder = new AlertDialog.Builder(this);
@@ -110,6 +115,7 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
+    // Save task to database
     private void saveTaskToDB(View v)
     {
         Task task = new Task();
