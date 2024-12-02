@@ -40,6 +40,8 @@ public class ListActivity extends AppCompatActivity {
 
     private EditText titleTask;
     private EditText descriptionTask;
+    private EditText dateStarted;
+    private EditText dateFinished;
     private Button saveButton;
 
     private AppBarConfiguration appBarConfiguration;
@@ -84,6 +86,8 @@ public class ListActivity extends AppCompatActivity {
             task.setTitle("Title: " + t.getTitle());
             task.setDescription("Description: " + t.getDescription());
             task.setDateItemAdded("Added on: " + t.getDateItemAdded());
+            task.setDateStarted("Started on: " + t.getDateStarted());
+            task.setDateFinished("Finished on: " + t.getDateFinished());
             taskListEdit.add(task);
         }
 
@@ -101,6 +105,8 @@ public class ListActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.popup, null);
         titleTask = (EditText) view.findViewById(R.id.taskItem);
         descriptionTask = (EditText) view.findViewById(R.id.descriptionTask);
+        dateStarted = (EditText) view.findViewById(R.id.dateStarted);
+        dateFinished = (EditText) view.findViewById(R.id.dateFinished);
         saveButton = (Button) view.findViewById(R.id.saveButton);
 
         dialogBuilder.setView(view);
@@ -121,9 +127,13 @@ public class ListActivity extends AppCompatActivity {
         Task task = new Task();
         String newTaskTitle = titleTask.getText().toString();
         String newTaskDescription = descriptionTask.getText().toString();
+        String newDateStarted = dateStarted.getText().toString().trim();
+        String newDateFinished = dateFinished.getText().toString().trim();
 
         task.setTitle(newTaskTitle);
         task.setDescription(newTaskDescription);
+        task.setDateStarted(newDateStarted);
+        task.setDateFinished(newDateFinished);
 
         // Save to db
         db.addTask(task);

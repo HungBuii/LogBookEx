@@ -41,11 +41,29 @@
                 android:layout_marginTop="15dp"
                 android:hint="Enter Description Task" />
 
+            <EditText
+                android:id="@+id/dateStarted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/descriptionTask"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Start Date || DD/MM/YYYY"
+                android:inputType="datetime|date" />
+
+            <EditText
+                android:id="@+id/dateFinished"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateStarted"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Finish Date || DD/MM/YYYY"
+                android:inputType="datetime|date" />
+
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/descriptionTask"
+                android:layout_below="@id/dateFinished"
                 android:backgroundTint="#DA0379"
                 android:text="Save Task"
                 android:textColor="@color/white"

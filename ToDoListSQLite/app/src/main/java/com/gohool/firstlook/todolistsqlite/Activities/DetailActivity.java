@@ -17,6 +17,8 @@ public class DetailActivity extends AppCompatActivity {
     private TextView titleDet;
     private TextView descriptionDet;
     private TextView dateAddedDet;
+    private TextView dateStartedDet;
+    private TextView dateFinishedDet;
     private int taskID;
 
     // Override methods
@@ -29,6 +31,8 @@ public class DetailActivity extends AppCompatActivity {
         titleDet = (TextView) findViewById(R.id.titleDet);
         descriptionDet = (TextView) findViewById(R.id.descriptionDet);
         dateAddedDet = (TextView) findViewById(R.id.dateAddedDet);
+        dateStartedDet = (TextView) findViewById(R.id.dateStartedDet);
+        dateFinishedDet = (TextView) findViewById(R.id.dateFinishedDet);
 
         // Get data from intent
         Bundle bundle = getIntent().getExtras();
@@ -38,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
             titleDet.setText(bundle.getString("title"));
             descriptionDet.setText(bundle.getString("description"));
             dateAddedDet.setText(bundle.getString("dateAdded"));
+            dateStartedDet.setText(bundle.getString("dateStarted"));
+            dateFinishedDet.setText(bundle.getString("dateFinished"));
             taskID = bundle.getInt("id");
         }
 

@@ -12,4 +12,6 @@ public class CreateDB
     public static final String KEY_TASK_ITEM = "task_item";
     public static final String KEY_DESCRIPTION_TASK = "description_task";
     public static final String KEY_DATE_NAME = "date_added";
+    public static final String KEY_DATE_STARTED = "date_started";
+    public static final String KEY_DATE_FINISHED = "date_finished";
 }

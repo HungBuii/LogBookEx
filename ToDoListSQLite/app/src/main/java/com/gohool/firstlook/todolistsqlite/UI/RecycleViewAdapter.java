@@ -1,11 +1,15 @@
 package com.gohool.firstlook.todolistsqlite.UI;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,11 +19,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gohool.firstlook.todolistsqlite.Activities.DetailActivity;
+import com.gohool.firstlook.todolistsqlite.Activities.ListActivity;
+import com.gohool.firstlook.todolistsqlite.Activities.MainActivity;
 import com.gohool.firstlook.todolistsqlite.Data.DatabaseHandle;
 import com.gohool.firstlook.todolistsqlite.Model.Task;
 import com.gohool.firstlook.todolistsqlite.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>
@@ -51,6 +58,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.titleTask.setText(task.getTitle());
         holder.descriptionTask.setText(task.getDescription());
         holder.dateAdded.setText(task.getDateItemAdded());
+        holder.dateStarted.setText(task.getDateStarted());
+        holder.dateFinished.setText(task.getDateFinished());
     }
 
     @Override
@@ -65,6 +74,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public TextView titleTask;
         public TextView descriptionTask;
         public TextView dateAdded;
+        public TextView dateStarted;
+        public TextView dateFinished;
         public Button editButton;
         public Button deleteButton;
 
@@ -76,6 +87,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             titleTask = (TextView) view.findViewById(R.id.titleTask);
             descriptionTask = (TextView) view.findViewById(R.id.descriptionTask);
             dateAdded = (TextView) view.findViewById(R.id.dateAdded);
+            dateStarted = (TextView) view.findViewById(R.id.dateStarted);
+            dateFinished = (TextView) view.findViewById(R.id.dateFinished);
 
             editButton = (Button) view.findViewById(R.id.editButton);
             deleteButton = (Button) view.findViewById(R.id.deleteButton);
@@ -95,6 +108,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     intent.putExtra("title", task.getTitle());
                     intent.putExtra("description", task.getDescription());
                     intent.putExtra("dateAdded", task.getDateItemAdded());
+                    intent.putExtra("dateStarted", task.getDateStarted());
+                    intent.putExtra("dateFinished", task.getDateFinished());
                     intent.putExtra("id", task.getId());
                     context.startActivity(intent);
                 }
@@ -163,9 +178,77 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
             final EditText taskTitle = (EditText) view.findViewById(R.id.taskItem);
             final EditText descriptionTask = (EditText) view.findViewById(R.id.descriptionTask);
+            final EditText dateStarted = (EditText) view.findViewById(R.id.dateStarted);
+            final EditText dateFinished = (EditText) view.findViewById(R.id.dateFinished);
             final TextView title = (TextView) view.findViewById(R.id.titleTask);
 
             title.setText("Edit Task");
+
+            String subTaskTitle = task.getTitle();
+            taskTitle.setText(subTaskTitle.substring(7));
+
+            String subTaskDescription = task.getDescription();
+            descriptionTask.setText(subTaskDescription.substring(13));
+
+            String subTaskDateStarted = task.getDateStarted();
+            dateStarted.setText(subTaskDateStarted.substring(12));
+
+            String subTaskDateFinished = task.getDateFinished();
+            dateFinished.setText(subTaskDateFinished.substring(13));
+
+            final Calendar calendar = Calendar.getInstance();
+            final int yearDateStarted = calendar.get(Calendar.YEAR);
+            final int monthDateStarted = calendar.get(Calendar.MONTH);
+            final int dayDateStarted = calendar.get(Calendar.DAY_OF_MONTH);
+            dateStarted.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            DatabaseHandle db = new DatabaseHandle(context);
+                            if (isValidDate(year, month, dayOfMonth))
+                            {
+                                @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
+                                Toast.makeText(context, "Select date: " + date, Toast.LENGTH_SHORT).show();
+                                dateStarted.setText(date);
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "This date cannot be less than the current date!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, yearDateStarted, monthDateStarted, dayDateStarted);
+                    datePickerDialog.show();
+                }
+            });
+
+            final int yearDateFinished = calendar.get(Calendar.YEAR);
+            final int monthDateFinished = calendar.get(Calendar.MONTH);
+            final int dayDateFinished  = calendar.get(Calendar.DAY_OF_MONTH);
+            dateFinished.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                            DatabaseHandle db = new DatabaseHandle(context);
+                            if (isValidDate(year, month, dayOfMonth))
+                            {
+                                @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
+                                Toast.makeText(context, "Select date: " + date, Toast.LENGTH_SHORT).show();
+                                dateFinished.setText(date);
+                            }
+                            else
+                            {
+                                Toast.makeText(context, "This date cannot be less than the current date!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, yearDateFinished, monthDateFinished, dayDateFinished);
+                    datePickerDialog.show();
+                }
+            });
+
             Button saveButton = (Button) view.findViewById(R.id.saveButton);
 
             alertDialogBuilder.setView(view);
@@ -180,6 +263,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     // Update task
                     task.setTitle(taskTitle.getText().toString());
                     task.setDescription(descriptionTask.getText().toString());
+                    task.setDateStarted(dateStarted.getText().toString().trim());
+                    task.setDateFinished(dateFinished.getText().toString().trim());
 
                     if (!taskTitle.getText().toString().isEmpty() &&
                             !descriptionTask.getText().toString().isEmpty()) {
@@ -189,10 +274,27 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     else {
                         Toast.makeText(context, "Task cannot be blank", Toast.LENGTH_LONG).show();
                     }
-
-                    dialog.dismiss();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dialog.dismiss();
+                            context.startActivity(new Intent(context, MainActivity.class));
+                        }
+                    }, 1000);
                 }
             });
+        }
+
+        private boolean isValidDate(int year, int month, int dayOfMonth)
+        {
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = calendar.get(Calendar.YEAR);
+            int currentMonth = calendar.get(Calendar.MONTH);
+            int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+            if (year < currentYear) return false;
+            else if (year == currentYear && month < currentMonth) return false;
+            else if (year == currentYear && month == currentMonth && dayOfMonth < currentDay) return false;
+            return true;
         }
 
     }

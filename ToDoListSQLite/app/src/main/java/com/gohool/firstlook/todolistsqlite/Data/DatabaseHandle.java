@@ -33,7 +33,9 @@ public class DatabaseHandle extends SQLiteOpenHelper
                 + CreateDB.KEY_ID + " INTEGER PRIMARY KEY,"
                 + CreateDB.KEY_TASK_ITEM + " TEXT,"
                 + CreateDB.KEY_DESCRIPTION_TASK + " TEXT,"
-                + CreateDB.KEY_DATE_NAME + " LONG);";
+                + CreateDB.KEY_DATE_NAME + " LONG,"
+                + CreateDB.KEY_DATE_STARTED + " LONG,"
+                + CreateDB.KEY_DATE_FINISHED + " LONG);";
 
         db.execSQL(CREATE_TODOLIST_TABLE);
     }
@@ -58,6 +60,8 @@ public class DatabaseHandle extends SQLiteOpenHelper
         values.put(CreateDB.KEY_TASK_ITEM, task.getTitle());
         values.put(CreateDB.KEY_DESCRIPTION_TASK, task.getDescription());
         values.put(CreateDB.KEY_DATE_NAME, java.lang.System.currentTimeMillis());
+        values.put(CreateDB.KEY_DATE_STARTED, task.getDateStarted());
+        values.put(CreateDB.KEY_DATE_FINISHED, task.getDateFinished());
 
         // Insert the row
         db.insert(CreateDB.TABLE_NAME, null, values);
@@ -72,7 +76,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
 
         Cursor cursor = db.query(CreateDB.TABLE_NAME, new String[] {CreateDB.KEY_ID,
                         CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK,
-                        CreateDB.KEY_DATE_NAME},
+                        CreateDB.KEY_DATE_NAME, CreateDB.KEY_DATE_STARTED, CreateDB.KEY_DATE_FINISHED},
                 CreateDB.KEY_ID + "=?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -105,6 +109,16 @@ public class DatabaseHandle extends SQLiteOpenHelper
                 String formattedDate = dateFormat.format(new Date(cursor.getLong(dateIndex)).getTime());
                 task.setDateItemAdded(formattedDate);
             }
+
+            int dateStartedIndex = cursor.getColumnIndex(CreateDB.KEY_DATE_STARTED);
+            if (dateStartedIndex >= 0) {
+                task.setDateStarted(cursor.getString(dateStartedIndex));
+            }
+
+            int dateFinishedIndex = cursor.getColumnIndex(CreateDB.KEY_DATE_FINISHED);
+            if (dateFinishedIndex >= 0) {
+                task.setDateFinished(cursor.getString(dateFinishedIndex));
+            }
         }
         return task;
     }
@@ -117,7 +131,8 @@ public class DatabaseHandle extends SQLiteOpenHelper
         List<Task> taskList = new ArrayList<>();
 
         Cursor cursor = db.query(CreateDB.TABLE_NAME, new String[] {
-                        CreateDB.KEY_ID, CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK, CreateDB.KEY_DATE_NAME},
+                        CreateDB.KEY_ID, CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK,
+                        CreateDB.KEY_DATE_NAME, CreateDB.KEY_DATE_STARTED, CreateDB.KEY_DATE_FINISHED},
                 null, null, null, null, CreateDB.KEY_DATE_NAME + " DESC", null); // ASC: ascending, DESC: descending
 
         if (cursor.moveToFirst())
@@ -148,6 +163,16 @@ public class DatabaseHandle extends SQLiteOpenHelper
                     task.setDateItemAdded(formattedDate);
                 }
 
+                int dateStartedIndex = cursor.getColumnIndex(CreateDB.KEY_DATE_STARTED);
+                if (dateStartedIndex >= 0) {
+                    task.setDateStarted(cursor.getString(dateStartedIndex));
+                }
+
+                int dateFinishedIndex = cursor.getColumnIndex(CreateDB.KEY_DATE_FINISHED);
+                if (dateFinishedIndex >= 0) {
+                    task.setDateFinished(cursor.getString(dateFinishedIndex));
+                }
+
                 // Add to the groceryList
                 taskList.add(task);
             } while (cursor.moveToNext());
@@ -164,6 +189,8 @@ public class DatabaseHandle extends SQLiteOpenHelper
         values.put(CreateDB.KEY_TASK_ITEM, task.getTitle());
         values.put(CreateDB.KEY_DESCRIPTION_TASK, task.getDescription());
         values.put(CreateDB.KEY_DATE_NAME, java.lang.System.currentTimeMillis());
+        values.put(CreateDB.KEY_DATE_STARTED, task.getDateStarted());
+        values.put(CreateDB.KEY_DATE_FINISHED, task.getDateFinished());
 
         // update row
         return db.update(CreateDB.TABLE_NAME, values, CreateDB.KEY_ID + "=?",

@@ -7,15 +7,19 @@ public class Task
     private String title;
     private String description;
     private String dateItemAdded;
+    private String dateStarted;
+    private String dateFinished;
 
     public Task() {
     }
 
-    public Task(int id, String title, String description) {
+    public Task(int id, String title, String description, String dateStarted, String dateFinished) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dateItemAdded = dateItemAdded;
+        this.dateStarted = dateStarted;
+        this.dateFinished = dateFinished;
     }
 
     public int getId() {
@@ -48,5 +52,21 @@ public class Task
 
     public void setDateItemAdded(String dateItemAdded) {
         this.dateItemAdded = dateItemAdded;
+    }
+
+    public String getDateStarted() {
+        return dateStarted;
+    }
+
+    public void setDateStarted(String dateStarted) {
+        this.dateStarted = dateStarted;
+    }
+
+    public String getDateFinished() {
+        return dateFinished;
+    }
+
+    public void setDateFinished(String dateFinished) {
+        this.dateFinished = dateFinished;
     }
 }

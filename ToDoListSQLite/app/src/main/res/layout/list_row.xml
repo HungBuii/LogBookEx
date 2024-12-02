@@ -41,6 +41,24 @@
                 android:textStyle="italic"
                 android:layout_below="@id/descriptionTask" />
 
+            <TextView
+                android:id="@+id/dateStarted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Date Started: "
+                android:textStyle="italic"
+                android:layout_below="@id/dateAdded" />
+
+            <TextView
+                android:id="@+id/dateFinished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="Date Finished: "
+                android:textStyle="italic"
+                android:layout_below="@id/dateStarted" />
+
             <TableRow
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
