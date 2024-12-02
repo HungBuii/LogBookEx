@@ -280,7 +280,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             dialog.dismiss();
                             context.startActivity(new Intent(context, MainActivity.class));
                         }
-                    }, 1000);
+                    }, 500);
                 }
             });
         }
