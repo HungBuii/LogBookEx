@@ -9,6 +9,7 @@ public class Task
     private String dateItemAdded;
     private String dateStarted;
     private String dateFinished;
+    private String duration;
 
     public Task() {
     }
@@ -18,8 +19,7 @@ public class Task
         this.title = title;
         this.description = description;
         this.dateItemAdded = dateItemAdded;
-        this.dateStarted = dateStarted;
-        this.dateFinished = dateFinished;
+        this.duration = duration;
     }
 
     public int getId() {
@@ -68,5 +68,13 @@ public class Task
 
     public void setDateFinished(String dateFinished) {
         this.dateFinished = dateFinished;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }

@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/descriptionTask"
                 android:layout_marginTop="15dp"
-                android:hint="Enter Start Date || DD/MM/YYYY"
+                android:hint="Enter Start Date"
                 android:inputType="datetime|date" />
 
             <EditText
@@ -56,14 +56,23 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/dateStarted"
                 android:layout_marginTop="15dp"
-                android:hint="Enter Finish Date || DD/MM/YYYY"
+                android:hint="Enter Finish Date"
                 android:inputType="datetime|date" />
+
+            <EditText
+                android:id="@+id/duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dateFinished"
+                android:layout_marginTop="15dp"
+                android:hint="Enter Duration"
+                android:inputType="datetime|time" />
 
             <Button
                 android:id="@+id/saveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dateFinished"
+                android:layout_below="@id/duration"
                 android:backgroundTint="#DA0379"
                 android:text="Save Task"
                 android:textColor="@color/white"

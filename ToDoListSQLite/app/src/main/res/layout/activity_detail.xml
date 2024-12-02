@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="316dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
@@ -65,6 +65,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dateStartedDet"
                 android:text="Date Finished:"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/durationDet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dateFinishedDet"
+                android:text="Duration:"
                 android:textSize="14sp"
                 android:textStyle="italic" />
 

@@ -2,6 +2,7 @@ package com.gohool.firstlook.todolistsqlite.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText descriptionTask;
     private EditText dateStarted;
     private EditText dateFinished;
+    private EditText duration;
     private Button saveButton;
     private DatabaseHandle db;
 
@@ -101,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
 
         titleTask = (EditText) view.findViewById(R.id.taskItem);
         descriptionTask = (EditText) view.findViewById(R.id.descriptionTask);
-        dateStarted = (EditText) view.findViewById(R.id.dateStarted);
 
         final Calendar calendar = Calendar.getInstance();
         final int yearDateStarted = calendar.get(Calendar.YEAR);
         final int monthDateStarted = calendar.get(Calendar.MONTH);
         final int dayDateStarted = calendar.get(Calendar.DAY_OF_MONTH);
+        dateStarted = (EditText) view.findViewById(R.id.dateStarted);
         dateStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +160,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int hour = calendar.get(Calendar.HOUR);
+        int minute = calendar.get(Calendar.MINUTE);
+        duration = (EditText) view.findViewById(R.id.duration);
+        duration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        DatabaseHandle db = new DatabaseHandle(MainActivity.this);
+                        @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", hourOfDay, minute);
+                        Toast.makeText(MainActivity.this, "Select time: " + time, Toast.LENGTH_SHORT).show();
+                        duration.setText(time);
+                    }
+                }, hour, minute, true);
+                timePickerDialog.show();
+            }
+        });
+
+
         saveButton = (Button) view.findViewById(R.id.saveButton);
 
         dialogBuilder.setView(view); // Thiết lập layout cho cửa sổ popup.
@@ -196,11 +219,13 @@ public class MainActivity extends AppCompatActivity {
         String newTaskDescription = descriptionTask.getText().toString();
         String newDateStarted = dateStarted.getText().toString().trim();
         String newDateFinished = dateFinished.getText().toString().trim();
+        String newDuration = duration.getText().toString().trim();
 
         task.setTitle(newTaskTitle);
         task.setDescription(newTaskDescription);
         task.setDateStarted(newDateStarted);
         task.setDateFinished(newDateFinished);
+        task.setDuration(newDuration);
 
         // Save to db
         db.addTask(task);

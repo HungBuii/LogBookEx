@@ -2,6 +2,7 @@ package com.gohool.firstlook.todolistsqlite.UI;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +62,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.dateAdded.setText(task.getDateItemAdded());
         holder.dateStarted.setText(task.getDateStarted());
         holder.dateFinished.setText(task.getDateFinished());
+        holder.duration.setText(task.getDuration());
     }
 
     @Override
@@ -76,6 +79,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public TextView dateAdded;
         public TextView dateStarted;
         public TextView dateFinished;
+        public TextView duration;
         public Button editButton;
         public Button deleteButton;
 
@@ -89,6 +93,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             dateAdded = (TextView) view.findViewById(R.id.dateAdded);
             dateStarted = (TextView) view.findViewById(R.id.dateStarted);
             dateFinished = (TextView) view.findViewById(R.id.dateFinished);
+            duration = (TextView) view.findViewById(R.id.duration);
 
             editButton = (Button) view.findViewById(R.id.editButton);
             deleteButton = (Button) view.findViewById(R.id.deleteButton);
@@ -110,6 +115,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     intent.putExtra("dateAdded", task.getDateItemAdded());
                     intent.putExtra("dateStarted", task.getDateStarted());
                     intent.putExtra("dateFinished", task.getDateFinished());
+                    intent.putExtra("duration", task.getDuration());
                     intent.putExtra("id", task.getId());
                     context.startActivity(intent);
                 }
@@ -180,6 +186,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             final EditText descriptionTask = (EditText) view.findViewById(R.id.descriptionTask);
             final EditText dateStarted = (EditText) view.findViewById(R.id.dateStarted);
             final EditText dateFinished = (EditText) view.findViewById(R.id.dateFinished);
+            final EditText duration = (EditText) view.findViewById(R.id.duration);
             final TextView title = (TextView) view.findViewById(R.id.titleTask);
 
             title.setText("Edit Task");
@@ -195,6 +202,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
             String subTaskDateFinished = task.getDateFinished();
             dateFinished.setText(subTaskDateFinished.substring(13));
+
+            String subTaskDuration = task.getDuration();
+            duration.setText(subTaskDuration.substring(10));
 
             final Calendar calendar = Calendar.getInstance();
             final int yearDateStarted = calendar.get(Calendar.YEAR);
@@ -249,6 +259,24 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 }
             });
 
+            int hour = calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
+            duration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                            DatabaseHandle db = new DatabaseHandle(context);
+                            @SuppressLint("DefaultLocale") String time = String.format("%02d:%02d", hourOfDay, minute);
+                            Toast.makeText(context, "Select time: " + time, Toast.LENGTH_SHORT).show();
+                            duration.setText(time);
+                        }
+                    }, hour, minute, true);
+                    timePickerDialog.show();
+                }
+            });
+
             Button saveButton = (Button) view.findViewById(R.id.saveButton);
 
             alertDialogBuilder.setView(view);
@@ -265,6 +293,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     task.setDescription(descriptionTask.getText().toString());
                     task.setDateStarted(dateStarted.getText().toString().trim());
                     task.setDateFinished(dateFinished.getText().toString().trim());
+                    task.setDuration(duration.getText().toString().trim());
 
                     if (!taskTitle.getText().toString().isEmpty() &&
                             !descriptionTask.getText().toString().isEmpty()) {
