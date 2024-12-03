@@ -97,6 +97,7 @@ public class ListActivity extends AppCompatActivity {
             task.setDateStarted("Started on: " + t.getDateStarted());
             task.setDateFinished("Finished on: " + t.getDateFinished());
             task.setDuration("Duration: " + t.getDuration());
+            task.setStatus(t.getStatus());
             taskListEdit.add(task);
         }
 
@@ -224,12 +225,14 @@ public class ListActivity extends AppCompatActivity {
         String newDateStarted = dateStarted.getText().toString().trim();
         String newDateFinished = dateFinished.getText().toString().trim();
         String newDuration = duration.getText().toString().trim();
+        String newStatus = "false";
 
         task.setTitle(newTaskTitle);
         task.setDescription(newTaskDescription);
         task.setDateStarted(newDateStarted);
         task.setDateFinished(newDateFinished);
         task.setDuration(newDuration);
+        task.setStatus(newStatus);
 
         // Save to db
         db.addTask(task);

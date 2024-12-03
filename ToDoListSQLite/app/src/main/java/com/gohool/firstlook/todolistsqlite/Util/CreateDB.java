@@ -15,4 +15,5 @@ public class CreateDB
     public static final String KEY_DATE_STARTED = "date_started";
     public static final String KEY_DATE_FINISHED = "date_finished";
     public static final String KEY_DURATION = "duration";
+    public static final String KEY_STATUS = "status";
 }

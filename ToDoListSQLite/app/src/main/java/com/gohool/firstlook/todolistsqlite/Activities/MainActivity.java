@@ -24,6 +24,7 @@ import com.gohool.firstlook.todolistsqlite.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -220,12 +221,14 @@ public class MainActivity extends AppCompatActivity {
         String newDateStarted = dateStarted.getText().toString().trim();
         String newDateFinished = dateFinished.getText().toString().trim();
         String newDuration = duration.getText().toString().trim();
+        String newStatus = "false";
 
         task.setTitle(newTaskTitle);
         task.setDescription(newTaskDescription);
         task.setDateStarted(newDateStarted);
         task.setDateFinished(newDateFinished);
         task.setDuration(newDuration);
+        task.setStatus(newStatus);
 
         // Save to db
         db.addTask(task);

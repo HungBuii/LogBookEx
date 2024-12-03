@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,6 +65,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         holder.dateStarted.setText(task.getDateStarted());
         holder.dateFinished.setText(task.getDateFinished());
         holder.duration.setText(task.getDuration());
+        holder.statusCB.setChecked(Boolean.parseBoolean(task.getStatus()));
     }
 
     @Override
@@ -80,6 +83,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public TextView dateStarted;
         public TextView dateFinished;
         public TextView duration;
+        public CheckBox statusCB;
         public Button editButton;
         public Button deleteButton;
 
@@ -94,6 +98,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             dateStarted = (TextView) view.findViewById(R.id.dateStarted);
             dateFinished = (TextView) view.findViewById(R.id.dateFinished);
             duration = (TextView) view.findViewById(R.id.duration);
+            statusCB = (CheckBox) view.findViewById(R.id.statusCB);
 
             editButton = (Button) view.findViewById(R.id.editButton);
             deleteButton = (Button) view.findViewById(R.id.deleteButton);
@@ -101,7 +106,27 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             editButton.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
 
-            // Set onclick listener for each item
+            statusCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    DatabaseHandle db = new DatabaseHandle(context);
+                    int position = getAdapterPosition();
+                    Task task = taskList.get(position);
+                    if (isChecked)
+                    {
+                        String convert = String.valueOf(isChecked);
+                        task.setStatus(convert);
+                        db.updateStatusTask(task);
+                    }
+                    else
+                    {
+                        String convert = String.valueOf(isChecked);
+                        task.setStatus(convert);
+                        db.updateStatusTask(task);
+                    }
+                }
+            });
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

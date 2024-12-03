@@ -36,7 +36,8 @@ public class DatabaseHandle extends SQLiteOpenHelper
                 + CreateDB.KEY_DATE_NAME + " LONG,"
                 + CreateDB.KEY_DATE_STARTED + " LONG,"
                 + CreateDB.KEY_DATE_FINISHED + " LONG,"
-                + CreateDB.KEY_DURATION + " LONG);";
+                + CreateDB.KEY_DURATION + " LONG,"
+                + CreateDB.KEY_STATUS + " TEXT);";
 
         db.execSQL(CREATE_TODOLIST_TABLE);
     }
@@ -64,6 +65,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
         values.put(CreateDB.KEY_DATE_STARTED, task.getDateStarted());
         values.put(CreateDB.KEY_DATE_FINISHED, task.getDateFinished());
         values.put(CreateDB.KEY_DURATION, task.getDuration());
+        values.put(CreateDB.KEY_STATUS, task.getStatus());
 
         // Insert the row
         db.insert(CreateDB.TABLE_NAME, null, values);
@@ -79,7 +81,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
         Cursor cursor = db.query(CreateDB.TABLE_NAME, new String[] {CreateDB.KEY_ID,
                         CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK,
                         CreateDB.KEY_DATE_NAME, CreateDB.KEY_DATE_STARTED, CreateDB.KEY_DATE_FINISHED,
-                        CreateDB.KEY_DURATION},
+                        CreateDB.KEY_DURATION, CreateDB.KEY_STATUS},
                 CreateDB.KEY_ID + "=?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
 
@@ -127,6 +129,11 @@ public class DatabaseHandle extends SQLiteOpenHelper
             if (durationIndex >= 0) {
                 task.setDuration(cursor.getString(durationIndex));
             }
+
+            int statusIndex = cursor.getColumnIndex(CreateDB.KEY_STATUS);
+            if (statusIndex >= 0) {
+                task.setStatus(cursor.getString(statusIndex));
+            }
         }
         return task;
     }
@@ -141,7 +148,7 @@ public class DatabaseHandle extends SQLiteOpenHelper
         Cursor cursor = db.query(CreateDB.TABLE_NAME, new String[] {
                         CreateDB.KEY_ID, CreateDB.KEY_TASK_ITEM, CreateDB.KEY_DESCRIPTION_TASK,
                         CreateDB.KEY_DATE_NAME, CreateDB.KEY_DATE_STARTED, CreateDB.KEY_DATE_FINISHED,
-                        CreateDB.KEY_DURATION},
+                        CreateDB.KEY_DURATION, CreateDB.KEY_STATUS},
                 null, null, null, null, CreateDB.KEY_ID + " ASC", null); // ASC: ascending, DESC: descending
 
         if (cursor.moveToFirst())
@@ -187,6 +194,11 @@ public class DatabaseHandle extends SQLiteOpenHelper
                     task.setDuration(cursor.getString(durationIndex));
                 }
 
+                int statusIndex = cursor.getColumnIndex(CreateDB.KEY_STATUS);
+                if (statusIndex >= 0) {
+                    task.setStatus(cursor.getString(statusIndex));
+                }
+
                 // Add to the groceryList
                 taskList.add(task);
             } while (cursor.moveToNext());
@@ -206,7 +218,19 @@ public class DatabaseHandle extends SQLiteOpenHelper
         values.put(CreateDB.KEY_DATE_STARTED, task.getDateStarted());
         values.put(CreateDB.KEY_DATE_FINISHED, task.getDateFinished());
         values.put(CreateDB.KEY_DURATION, task.getDuration());
+        values.put(CreateDB.KEY_STATUS, task.getStatus());
 
+        // update row
+        return db.update(CreateDB.TABLE_NAME, values, CreateDB.KEY_ID + "=?",
+                new String[] {String.valueOf(task.getId())}); // return ID of row updated
+    }
+
+    // Update status task
+    public int updateStatusTask(Task task)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CreateDB.KEY_STATUS, task.getStatus());
         // update row
         return db.update(CreateDB.TABLE_NAME, values, CreateDB.KEY_ID + "=?",
                 new String[] {String.valueOf(task.getId())}); // return ID of row updated
