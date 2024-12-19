@@ -33,8 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 import java.util.List;
 
-public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>
-{
+public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
     // Declare variables
     private Context context;
     private List<Task> taskList;
@@ -74,8 +73,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     // ViewHolder class
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-    {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public int id;
         public TextView titleTask;
         public TextView descriptionTask;
@@ -112,18 +110,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     DatabaseHandle db = new DatabaseHandle(context);
                     int position = getAdapterPosition();
                     Task task = taskList.get(position);
-                    if (isChecked)
-                    {
-                        String convert = String.valueOf(isChecked);
-                        task.setStatus(convert);
-                        db.updateStatusTask(task);
-                    }
-                    else
-                    {
-                        String convert = String.valueOf(isChecked);
-                        task.setStatus(convert);
-                        db.updateStatusTask(task);
-                    }
+                    String convert = String.valueOf(isChecked);
+                    task.setStatus(convert);
+                    db.updateStatusTask(task);
                 }
             });
 
@@ -162,8 +151,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         // Delete task
-        public void deleteTask(int id)
-        {
+        public void deleteTask(int id) {
             // create an AlertDialog
             alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -200,8 +188,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
 
         // Edit task
-        public void editTask(Task task)
-        {
+        public void editTask(Task task) {
             alertDialogBuilder = new AlertDialog.Builder(context);
 
             inflater = LayoutInflater.from(context);
@@ -242,14 +229,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             DatabaseHandle db = new DatabaseHandle(context);
-                            if (isValidDate(year, month, dayOfMonth))
-                            {
+                            if (isValidDate(year, month, dayOfMonth)) {
                                 @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
                                 Toast.makeText(context, "Select date: " + date, Toast.LENGTH_SHORT).show();
                                 dateStarted.setText(date);
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(context, "This date cannot be less than the current date!", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -260,7 +244,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
             final int yearDateFinished = calendar.get(Calendar.YEAR);
             final int monthDateFinished = calendar.get(Calendar.MONTH);
-            final int dayDateFinished  = calendar.get(Calendar.DAY_OF_MONTH);
+            final int dayDateFinished = calendar.get(Calendar.DAY_OF_MONTH);
             dateFinished.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -268,14 +252,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                             DatabaseHandle db = new DatabaseHandle(context);
-                            if (isValidDate(year, month, dayOfMonth))
-                            {
+                            if (isValidDate(year, month, dayOfMonth)) {
                                 @SuppressLint("DefaultLocale") String date = String.format("%02d/%02d/%d", dayOfMonth, month + 1, year);
                                 Toast.makeText(context, "Select date: " + date, Toast.LENGTH_SHORT).show();
                                 dateFinished.setText(date);
-                            }
-                            else
-                            {
+                            } else {
                                 Toast.makeText(context, "This date cannot be less than the current date!", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -324,8 +305,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                             !descriptionTask.getText().toString().isEmpty()) {
                         db.updateTask(task);
                         notifyItemChanged(getAdapterPosition(), task);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(context, "Task cannot be blank", Toast.LENGTH_LONG).show();
                     }
                     new Handler().postDelayed(new Runnable() {
@@ -339,15 +319,15 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             });
         }
 
-        private boolean isValidDate(int year, int month, int dayOfMonth)
-        {
+        private boolean isValidDate(int year, int month, int dayOfMonth) {
             Calendar calendar = Calendar.getInstance();
             int currentYear = calendar.get(Calendar.YEAR);
             int currentMonth = calendar.get(Calendar.MONTH);
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
             if (year < currentYear) return false;
             else if (year == currentYear && month < currentMonth) return false;
-            else if (year == currentYear && month == currentMonth && dayOfMonth < currentDay) return false;
+            else if (year == currentYear && month == currentMonth && dayOfMonth < currentDay)
+                return false;
             return true;
         }
 
