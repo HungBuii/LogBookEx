@@ -326,8 +326,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
             if (year < currentYear) return false;
             else if (year == currentYear && month < currentMonth) return false;
-            else if (year == currentYear && month == currentMonth && dayOfMonth < currentDay)
-                return false;
+            else if (year == currentYear && month == currentMonth && dayOfMonth < currentDay) return false;
             return true;
         }
 
